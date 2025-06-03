@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="title">Liste Fournissuer (Supplier list)</h2>
+            <div class="table-responsive pt-3">
+              <table class="table table-bordered">
+                <thead>
+                  <tr class="text-center">
+                    <th>name</th>
+                    <th>supplier name</th>
+                    <th>supplier group</th>
+                    <th>creation</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="supplier : ${suppliers}">
+                    <td class="text-center"><b th:text="${supplier.name}"></b></td>
+                    <td th:text="${supplier.supplier_name}"></td>
+                    <td th:text="${supplier.supplier_group}"></td>
+                    <td class="text-center"><b th:text="${#temporals.format(supplier.creation, 'dd/MM/yyyy')}"></b></td>
+                    <td class="text-center"><a class="text-primary" th:href="@{'/list/commande-supplier'(supplier=${supplier.name})}">Purchase Order</a></td>
+                    <td class="text-center"><a class="text-primary" th:href="@{'/list/demande-devis'(supplier=${supplier.name})}">Request for Quotation</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

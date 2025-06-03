@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="title mb-5">Importer fichier (Import file)</h2>
+        <form class="form-sample" th:action="@{/database/import-file}" th:object="${importFile_form}" method="POST" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Fichier 1</label>
+                <div class="col-sm-9">
+                  <input type="file" th:field="*{fichier1}" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload fichier employee">
+                    <span class="input-group-append">
+                      <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                  </div>
+                  <span class="text-danger" th:if="${eF1}" th:text="${eF1}"></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label text-center">Fichier 2 </label>
+                <div class="col-sm-9">
+                  <input type="file" th:field="*{fichier2}" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Salary Structure">
+                    <span class="input-group-append">
+                      <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                  </div>
+                  <span class="text-danger" th:if="${eF2}" th:text="${eF2}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Fichier 3</label>
+                <div class="col-sm-9">
+                  <input type="file" th:field="*{fichier3}" class="file-upload-default">
+                  <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled="" placeholder="Salary Slip">
+                    <span class="input-group-append">
+                      <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                  </div>
+                  <span class="text-danger" th:if="${eF3}" th:text="${eF3}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mt-4"></p>
+          <p class="card-description text-danger" th:each="err : ${errors}" th:text="${err}"></p>
+          
+          <button type="submit" class="btn btn-primary mr-4">Importer</button>
+          <a class="btn btn-secondary" th:href="@{/employee-list}">Retour</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

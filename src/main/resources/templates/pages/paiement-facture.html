@@ -1,0 +1,219 @@
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Paiement facture</h4>
+            <form class="form-sample" th:action="@{/paiement/sauvgarder}" method="POST">
+              <p class="card-description"> Type de Paiement </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Series</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.naming_series}" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Type de paiement</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.payment_type}" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Date comptabilisation</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" th:value="${payment_entry.posting_date}" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Societé</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.company}" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="card-description">Paiement de/A</p>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">T. Tiers</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.party_type}" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Tiers</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.party}" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Nom Tiers</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" th:value="${payment_entry.party_name}" readonly>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <p class="card-description">Transaction</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Montant du</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control" th:value="${payment_entry.paid_amount}" name="paid_amount" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Cheque/N. reference</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" th:value="${payment_entry.reference_no}" name="reference_no" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary mt-3" type="submti">Sauvgarder paiement</button>
+              <a class="btn btn-secondary mr-4 mt-3" th:href="@{'/detail/facture'(purchase_invoice=${payment_entry.reference_name})}">Retour</a>
+
+            </form>
+          </div>
+        </div>
+    </div>
+</div>
+
+<!--
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Gender</label>
+                    <div class="col-sm-9">
+                      <select class="form-control">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Date of Birth</label>
+                    <div class="col-sm-9">
+                      <input class="form-control" placeholder="dd/mm/yyyy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Category</label>
+                    <div class="col-sm-9">
+                      <select class="form-control">
+                        <option>Category1</option>
+                        <option>Category2</option>
+                        <option>Category3</option>
+                        <option>Category4</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Membership</label>
+                    <div class="col-sm-4">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios1" value="" checked="">
+                          Free
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="membershipRadios" id="membershipRadios2" value="option2">
+                          Professional
+                        <i class="input-helper"></i></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="card-description">
+                Address
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Address 1</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">State</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Address 2</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Postcode</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">City</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Country</label>
+                    <div class="col-sm-9">
+                      <select class="form-control">
+                        <option>America</option>
+                        <option>Italy</option>
+                        <option>Russia</option>
+                        <option>Britain</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+-->

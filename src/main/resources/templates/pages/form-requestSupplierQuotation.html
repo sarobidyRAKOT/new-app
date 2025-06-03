@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Horizontal Two column</h4>
+        <form class="form-sample" th:action="@{/request/supplier-quotation}" method="POST">
+          <p class="card-description">
+            Personal info
+          </p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Transaction date</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" name="transaction_date">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Purpose</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="purpose">
+                        <option value="Purchase">Purchase</option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Warehouse</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="warehouse">
+                    <option th:each="warehouse : ${warehouses}" th:value="${warehouse.value}" th:text="${warehouse.value}"></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">required by</label>
+                <div class="col-sm-9">
+                  <input type="date" name="required_by" class="form-control" placeholder="dd/mm/yyyy">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+          <div id="details-container">
+            <p class="card-description text-center mt-4">DETAIL</p>
+            <div class="row detail-row">
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">item code</label>
+                  <div class="col-sm-6">
+                    <select name="item_code[]" class="form-control item_code">
+                        <option value="">-- Sélectionnez un article --</option>
+                        <option th:each="item : ${items}"
+                                th:value="${item.item_code}"
+                                th:text="${item.name}">
+                        </option>
+                    </select>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Quantites</label>
+                  <div class="col-sm-6">
+                    <input type="number" name="qty[]" class="form-control qty" placeholder="" >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Unité</label>
+                  <div class="col-sm-6">
+                    <input type="text" name="uom[]" class="form-control uom" placeholder="" value="Nos">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 mt-2">
+                  <a href="" style="text-decoration:none;"> <i class="ti-plus mr-4 text-success add-row"  style="font-size: 2rem;"></i></a>
+                  <a href="" style="text-decoration:none;"> <i class="ti-trash remove-row"  style="font-size: 2rem;"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary"> valider </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
