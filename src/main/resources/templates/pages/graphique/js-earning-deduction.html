@@ -1,0 +1,299 @@
+
+
+<script th:fragment="js-earning-deduction" th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // Données réelles injectées par Thymeleaf
+    const earnings = [[${total_earnings}]];
+    const deductions = [[${total_deductions}]];
+    const netPay = [[${realData}]];
+
+    console.log("Earnings:", earnings);
+    console.log("Deductions:", deductions);
+    console.log("Net Pay:", netPay);
+
+    // Protection contre valeurs vides
+    const maxValue = Math.max(...earnings, ...deductions, ...netPay, 1); // évite -Infinity
+    const scaleMax = 16;
+    const ratio = (scaleMax - 2) / maxValue;
+
+    const scaledEarnings = earnings.map(val => val * ratio);
+    const scaledDeductions = deductions.map(val => val * ratio);
+    const scaledNetPay = netPay.map(val => val * ratio);
+
+    // Configuration des données du graphique
+    const lineData = {
+      labels: ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"],
+      datasets: [
+        {
+          label: 'Earnings',
+          data: scaledEarnings,
+          backgroundColor: 'rgba(255, 206, 86, 1)'
+        },
+        {
+          label: 'Net Pay',
+          data: scaledNetPay,
+          backgroundColor: '#36A2EB'
+        },
+        {
+          label: 'Deductions',
+          data: scaledDeductions,
+          backgroundColor: '#FF6384'
+        }
+      ]
+    };
+
+    const lineOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      layout: {
+        padding: { left: 0, right: 0, top: 20, bottom: 0 }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: scaleMax,
+          ticks: {
+            color: "#6C7383",
+            callback: value => {
+              const estimatedValue = Math.round(value / ratio);
+              return estimatedValue + ' €';
+            }
+          },
+          grid: { color: "#F2F2F2" }
+        },
+        x: {
+          ticks: { color: "#6C7383" },
+          grid: { display: false },
+          stacked: false,
+          barPercentage: 1
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const index = context.dataIndex;
+              const label = context.dataset.label;
+              let value = 0;
+
+              if (label === 'Earnings') value = earnings[index];
+              else if (label === 'Deductions') value = deductions[index];
+              else if (label === 'Net Pay') value = netPay[index];
+
+              return `${label}: ${value.toLocaleString()} €`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: { radius: 0 }
+      }
+    };
+
+    // Création du graphique
+    if (document.getElementById("sales-chart")) {
+      const ctx = document.getElementById("sales-chart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: lineData,
+        options: lineOptions
+      });
+    }
+  });
+</script>
+
+
+
+<script th:fragment="js-earning-deduction-">
+  document.addEventListener("DOMContentLoaded", function () {
+    // Données réelles
+   //const net_pay = [[${realData}]];
+   const deductions = [[${total_deductions}]];
+   const earnings = [[${total_earnings}]];
+
+    const maxValue = Math.max(...earnings, ...deductions);
+    const scaleMax = 16;
+    const ratio = (scaleMax - 2) / maxValue;
+
+    const scaledEarnings = earnings.map(val => val * ratio);
+    const scaledDeductions  = deductions.map(val => val * ratio);
+
+    // Données pour le graphique
+    const lineData = {
+      labels: ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"],
+      datasets: [
+        {
+          label: 'Earnings',
+          data: scaledEarnings,
+          backgroundColor: '#4B49AC'
+          // borderRadius: 10
+        },
+        {
+          label: 'Deductions',
+          data: scaledDeductions,
+          backgroundColor: '#ff6384'
+          // borderRadius: 10
+        }
+      ]
+    };
+
+    const lineOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      layout: {
+        padding: { left: 0, right: 0, top: 20, bottom: 0 }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: scaleMax,
+          ticks: {
+            color: "#6C7383",
+            callback: value => {
+              // Affiche une graduation estimée en EUR
+              const estimatedValue = Math.round(value / ratio);
+              return estimatedValue + ' EUR';
+            }
+          },
+          grid: { color: "#F2F2F2" }
+        },
+        x: {
+          ticks: { color: "#6C7383" },
+          grid: { display: false },
+          stacked: false,
+          barPercentage: 1
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const datasetIndex = context.datasetIndex;
+              const dataIndex = context.dataIndex;
+              const realValue = datasetIndex === 0 ? earnings[dataIndex] : deductions[dataIndex];
+              return `${context.dataset.label}: ${realValue.toLocaleString()} €`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: { radius: 0 }
+      }
+    };
+
+    // Initialiser le graphique
+    if (document.getElementById("sales-chart")) {
+      const ctx = document.getElementById("sales-chart").getContext("2d");
+      new Chart(ctx, {
+        type: 'bar',
+        data: lineData,
+        options: lineOptions
+      });
+    }
+  });
+</script>
+
+<script th:fragment="js-earning-deduction-line">
+  document.addEventListener("DOMContentLoaded", function () {
+    // Données réelles
+
+   const earnings = [[${total_earnings}]];
+   const deductions = [[${total_deductions}]];
+
+
+
+    // Normalisation pour échelle 0–16
+    const maxValue = Math.max(...earnings, ...deductions);
+    const scaleMax = 16;
+    const ratio = (scaleMax - 2) / maxValue;
+
+    const scaledEarnings = earnings.map(val => val * ratio);
+    const scaledDeductions  = deductions.map(val => val * ratio);
+
+    // Données pour le graphique
+    const lineData = {
+      labels: ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"],
+      datasets: [
+        {
+          label: 'Offline Sales',
+          data: scaledEarnings,
+          borderColor: '#4B49AC',
+          backgroundColor: '#4B49AC',
+          borderWidth: 2,
+          fill: false,
+          tension: 0.4,
+          pointRadius: 3,
+          borderRadius: 0
+        },
+        {
+          label: 'Online Sales',
+          data: scaledDeductions,
+          borderColor: '#F2F2F2',
+          backgroundColor: '#F2F2F2',
+          borderWidth: 2,
+          fill: false,
+          tension: 0.4,
+          pointRadius: 3,
+          borderRadius: 0
+        }
+      ]
+    };
+
+    const lineOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      animation: {
+        duration: 1000
+      },
+      layout: {
+        padding: { left: 0, right: 0, top: 20, bottom: 0 }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: scaleMax,
+          ticks: {
+            color: "#6C7383",
+            callback: value => {
+              const estimatedValue = Math.round(value / ratio);
+              return estimatedValue + ' EUR';
+            }
+          },
+          grid: { color: "#F2F2F2" }
+        },
+        x: {
+          ticks: { color: "#6C7383" },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const datasetIndex = context.datasetIndex;
+              const dataIndex = context.dataIndex;
+              const realValue = datasetIndex === 0 ? earnings[dataIndex] : deductions[dataIndex];
+              return `${context.dataset.label}: ${realValue.toLocaleString()} €`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: { radius: 3 }
+      }
+    };
+
+    // Initialiser le graphique
+    if (document.getElementById("sales-chart")) {
+      const ctx = document.getElementById("sales-chart").getContext("2d");
+      new Chart(ctx, {
+        type: 'line',
+        data: lineData,
+        options: lineOptions
+      });
+    }
+  });
+</script>

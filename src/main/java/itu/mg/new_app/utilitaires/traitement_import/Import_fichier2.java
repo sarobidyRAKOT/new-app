@@ -1,4 +1,4 @@
-package itu.mg.new_app.utilitaires.traitement;
+package itu.mg.new_app.utilitaires.traitement_import;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class Import_fichier2 implements ImportExport_impl <Fichier_2> {
 
             
             Salary_Component_body scBody = new Salary_Component_body(name, abbr, type, fourmula);
-            Salary_Structure_body ssBody = new Salary_Structure_body(salary_structure, company, type, abbr, fourmula); 
+            Salary_Structure_body ssBody = new Salary_Structure_body(salary_structure, company, type, name, fourmula); 
             
             return new Fichier_2(scBody, ssBody);
 

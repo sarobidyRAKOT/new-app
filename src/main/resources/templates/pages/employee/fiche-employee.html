@@ -1,0 +1,110 @@
+<div th:fragment="fiche-employee" class="col-md-12 grid-margin stretch-card" id="profile_employee">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="mt-3 text-center" th:text="'*** PROFILE EMPLOYEE ('+${employee.name}+') ***'"></h2>
+      <div class="forms-sample">
+        <p class="card-description my-4 text-center">INFORMATION PERSONNELLE</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Employee ID</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.name}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">First name</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.first_name}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Employee name</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.employee_name}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Middle name</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.middle_name ?: ''}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="card-description my-4 text-center">INFORMATION PROFESSIONNELLE</p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Company</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.company}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Department</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.department ?: ''}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Grade</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.grade ?: ''}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Designation</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.designation ?: ''}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Department</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.department}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Date of Joining</label>
+              <div class="col-sm-8">
+                <input type="text" th:value="${employee.date_of_joining}" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-center">
+            <button class="btn btn-secondary mr-4 mt-4" onclick="show ('Salary_Slips', ['Salary_Structure_Assignments', 'profile_employee'])">Salary Slip</button>
+            <a th:href="@{/database/import-file}" class="btn btn-secondary mr-4 mt-4">Import CSV</a>
+            <a th:href="@{/employee-list}" class="btn btn-secondary mr-4 mt-4">Employee List</a>
+            <button class="btn btn-secondary mr-4 mt-4" onclick="show ('Salary_Structure_Assignments', ['Salary_Slips', 'profile_employee'])">SalaryStructure Assignments</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

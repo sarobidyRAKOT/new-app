@@ -1,0 +1,21 @@
+<div th:fragment="net-pay" class="col-lg-12 grid-margin stretch-card" id="total-salary" style="display: none;">
+  <div class="card">
+    <div class="card-body">
+      <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+      <div class="row align-items-center mb-3">
+        <div class="col">
+          <h2 class="ml-3">TOTAL SALARY (2025) ***</h2>
+        </div>
+        <div class="col-auto text-right">
+          <button class="btn btn-primary mr-4" onclick="show('earnings-deductions', ['total-salary'])">EARNINGS & DEDUCTIONS</button>
+        </div>
+      </div>
+
+      <canvas id="lineChart" width="348" height="110" style="display: block; height: 158px; width: 317px;" class="chartjs-render-monitor"></canvas>
+    </div>
+  </div>
+</div>
+
+<!--
+-->
+

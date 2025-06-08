@@ -49,47 +49,44 @@
           </div>
 
           
-          <div id="details-container">
-            <p class="card-description text-center mt-4">DETAIL</p>
-            <div class="row detail-row">
-              <div class="col-md-4">
-                <div class="form-group row">
-                  <label class="col-sm-6 col-form-label">item code</label>
-                  <div class="col-sm-6">
-                    <select name="item_code[]" class="form-control item_code">
+<div id="details-container">
+    <div class="row detail-row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">item code</label>
+                <div class="col-sm-6">
+                    <select name="details[0].itemCode" class="form-control">
                         <option value="">-- Sélectionnez un article --</option>
                         <option th:each="item : ${items}"
                                 th:value="${item.item_code}"
-                                th:text="${item.name}">
-                        </option>
+                                th:text="${item.name}"></option>
                     </select>
-                    
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group row">
-                  <label class="col-sm-6 col-form-label">Quantites</label>
-                  <div class="col-sm-6">
-                    <input type="number" name="qty[]" class="form-control qty" placeholder="" >
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-2">
-                <div class="form-group row">
-                  <label class="col-sm-6 col-form-label">Unité</label>
-                  <div class="col-sm-6">
-                    <input type="text" name="uom[]" class="form-control uom" placeholder="" value="Nos">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-1 mt-2">
-                  <a href="" style="text-decoration:none;"> <i class="ti-plus mr-4 text-success add-row"  style="font-size: 2rem;"></i></a>
-                  <a href="" style="text-decoration:none;"> <i class="ti-trash remove-row"  style="font-size: 2rem;"></i></a>
-              </div>
             </div>
-          </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Quantité</label>
+                <div class="col-sm-6">
+                    <input type="number" name="details[0].qty" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Unité</label>
+                <div class="col-sm-6">
+                    <input type="text" name="details[0].uom" class="form-control" value="Nos" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 mt-2">
+            <i class="ti-plus text-success add-row" style="font-size: 2rem; cursor: pointer;"></i>
+            <i class="ti-trash text-danger remove-row" style="font-size: 2rem; cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+
 
           <button type="submit" class="btn btn-primary"> valider </button>
         </form>

@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-primary mr-4" onclick="show ('profile_employee', ['Salary_Structure_Assignments', 'Salary_Slips'])">Profile Employee</button>
+            <button class="btn btn-primary mr-4" onclick="show ('Salary_Slips', ['Salary_Structure_Assignments', 'profile_employee'])">Salary Slip</button>
+            <button class="btn btn-primary mr-4" onclick="show ('Salary_Structure_Assignments', ['Salary_Slips', 'profile_employee'])">SalaryStructure Assignments</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div th:replace="~{pages/employee/fiche-employee :: fiche-employee}"></div>
+  <div class="col-lg-12 grid-margin stretch-card"  id="Salary_Structure_Assignments" style="display: none;">
+    <div th:replace="~{pages/salary/salary-structure-assignment :: salary-structure-assignment}"></div>
+  </div>
+  <div class="col-lg-12 grid-margin stretch-card" id="Salary_Slips" style="display: none;">
+    <div th:replace="~{pages/salary/salary-slip :: salary-slip}"></div>
+  </div>
+</div>

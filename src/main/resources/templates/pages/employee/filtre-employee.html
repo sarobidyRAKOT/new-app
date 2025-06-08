@@ -1,0 +1,92 @@
+<div th:fragment="filtre-employee" class="card">
+  <div class="card-body">
+    <h2 class="mt-3 text-center">*** FILTRE (RECHERCHER EMPLOYEE) *** </h2>
+
+    <form class="forms-sample" th:object="${filtre_Employee_form}" th:action="@{/employee-list}" method="GET">
+      <p class="card-description mt-4">INFORMATION Employee</p>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Gender</label>
+            <div class="col-sm-8">
+              <select th:field="*{gender}" class="form-control">
+                <option value="">Choisir Gender </option>
+                <option th:each="gender : ${genders}" th:value="${gender.name}" th:text="${gender.name}"></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Department</label>
+            <div class="col-sm-8">
+              <select th:field="*{department}" class="form-control">
+                <option value="">Choisir Department</option>
+                <option th:each="department : ${departments}" th:value="${department.name}" th:text="${department.name}"></option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="daty" class="col-sm-3 col-form-label">Company</label>
+        <div class="col-sm-9">
+          <select th:field="*{company}" class="form-control">
+            <option value="">Choisir Company</option>
+            <option th:each="company : ${companies}" th:value="${company.name}" th:text="${company.name}"></option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Date birth entre</label>
+            <div class="col-sm-8">
+              <input type="date" th:field="*{date_of_birthMin}" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label text-center"> et </label>
+            <div class="col-sm-8">
+              <input type="date" th:field="*{date_of_birthMax}" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Designation</label>
+            <div class="col-sm-8">
+              <select th:field="*{designation}" class="form-control">
+                <option value="">Choisir Designation</option>
+                <option th:each="designation : ${designations}" th:value="${designation.name}" th:text="${designation.name}"></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Status</label>
+            <div class="col-sm-8">
+              <select th:field="*{status}" class="form-control">
+                <option value="">Choisir Status</option>
+                <option value="Active" th:selected="${status == 'Active'}">Active</option>
+                <option value="Inactive" th:selected="${status == 'Inactive'}">Inactive</option>
+                <option value="Suspended" th:selected="${status == 'Suspended'}">Suspended</option>
+                <option value="Left" th:selected="${status == 'Left'}">Left</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-right">
+          <button type="submit" class="btn btn-primary mr-5 mt-4">Search Employee</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

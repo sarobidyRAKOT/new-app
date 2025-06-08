@@ -1,0 +1,41 @@
+<div class="card" th:fragment="salary-structure-assignment">
+  <div class="card-body">
+    <h2 class="title text-center">*** SALARY STRUCTURE ASSIGNMENT ***</h2>
+    <div class="table-responsive pt-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th>NAME</th>
+            <th>SALARY STRUCTURE</th>
+            <th>COMPANY</th>
+            <th>BASE & CURRENCY</th>
+            <th>CREATION DATE</th>
+            <th>FROM DATE</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ssa : ${Salary_Structure_Assignments}">
+            <td class="text-center"><b th:text="${ssa.name}"></b></td>
+            <td th:text="${ssa.salary_structure}"></td>
+            <td class="text-center" th:text="${ssa.company}"></td>
+            <td class="text-right"><b th:text="${ssa.base}+ ' '+${ssa.currency}"></b></td>
+            <td class="text-center" th:text="${ssa.creation}"></td>
+            <td class="text-center"><b th:text="${ssa.from_date}"></b></td>
+            <td class="text-center">
+              <b>
+                <a class="text-primary" th:href="@{'/salary-structure-assignment/' + ${ssa.name}}">Salary Slip</a>
+              </b>
+            </td>
+          </tr>              
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <a th:href="@{/database/import-file}" class="btn btn-secondary mr-4 mt-4">Import CSV</a>
+        <a th:href="@{/employee-list}" class="btn btn-secondary mr-4 mt-4">Employee List</a>
+      </div>
+    </div>
+  </div>
+</div>

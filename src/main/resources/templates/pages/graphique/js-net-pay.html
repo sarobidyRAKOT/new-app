@@ -1,0 +1,183 @@
+<script th:fragment="js-net-pay" th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // Données réelles pour le Net Pay
+    // const realData = [18000, 23000, 4700, 21000, 33000, 4800, 12300, 14700, 17200, 11500, 9000, 15600];
+    // Normalisation pour une échelle max de 16
+
+    const realData = [[${realData}]];
+
+    const scaleMax = 16;
+    const maxValue = Math.max(...realData);
+    const ratio = (scaleMax - 2) / maxValue;
+    const scaledData = realData.map(val => val * ratio);
+
+    // Données du graphique
+    const lineData = {
+      labels: ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"],
+      datasets: [{
+        label: 'Net Pay',
+        data: scaledData,
+        borderColor: 'rgba(255,99,132,1)',
+        borderWidth: 2,
+        fill: false,
+        tension: 0.4
+      }]
+    };
+
+    const lineOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: scaleMax,
+          ticks: {
+            color: "#6C7383",
+            callback: value => {
+              const estimated = Math.round(value / ratio);
+              return estimated + ' EUR';
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const index = context.dataIndex;
+              const realValue = realData[index];
+              return `Net Pay: ${realValue.toLocaleString()} €`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: { radius: 3 }
+      }
+    };
+
+    if (document.getElementById("lineChart")) {
+      const ctx = document.getElementById("lineChart").getContext("2d");
+      new Chart(ctx, {
+        type: 'line',
+        data: lineData,
+        options: lineOptions
+      });
+    }
+  });
+</script>
+
+
+<script th:fragment="js-net_pay" th:inline="javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    const earnings = [[${total_earnings}]];
+    const deductions = [[${total_deductions}]];
+    const netPay = [[${realData}]];
+
+    console.log("Earnings:", earnings);
+    console.log("Deductions:", deductions);
+    console.log("Net Pay:", netPay);
+
+    const maxValue = Math.max(...earnings, ...deductions, ...netPay, 1);
+    const scaleMax = 16;
+    const ratio = (scaleMax - 2) / maxValue;
+
+    const scaledEarnings = earnings.map(val => val * ratio);
+    const scaledDeductions = deductions.map(val => val * ratio);
+    const scaledNetPay = netPay.map(val => val * ratio);
+
+    const lineData = {
+      labels: ["JANVIER", "FEVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"],
+      datasets: [
+        {
+          label: 'Earnings',
+          data: scaledEarnings,
+          borderColor: '#4B49AC',
+          backgroundColor: '#4B49AC',
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: 'Net Pay',
+          data: scaledNetPay,
+          borderColor: '#36A2EB',
+          backgroundColor: '#36A2EB',
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: 'Deductions',
+          data: scaledDeductions,
+          borderColor: '#FF6384',
+          backgroundColor: '#FF6384',
+          fill: false,
+          tension: 0.3
+        }
+      ]
+    };
+
+    const lineOptions = {
+      responsive: true,
+      maintainAspectRatio: true,
+      layout: {
+        padding: { left: 0, right: 0, top: 20, bottom: 0 }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: scaleMax,
+          ticks: {
+            color: "#6C7383",
+            callback: value => {
+              const estimatedValue = Math.round(value / ratio);
+              return estimatedValue + ' €';
+            }
+          },
+          grid: { color: "#F2F2F2" }
+        },
+        x: {
+          ticks: { color: "#6C7383" },
+          grid: { display: false }
+        }
+      },
+      plugins: {
+        legend: { display: true },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const index = context.dataIndex;
+              const label = context.dataset.label;
+              let value = 0;
+              if (label === 'Earnings') value = earnings[index];
+              else if (label === 'Deductions') value = deductions[index];
+              else if (label === 'Net Pay') value = netPay[index];
+
+              return `${label}: ${value.toLocaleString()} €`;
+            }
+          }
+        }
+      },
+      elements: {
+        point: { radius: 4 }
+      }
+    };
+
+    if (document.getElementById("sales-chart")) {
+      const ctx = document.getElementById("sales-chart").getContext("2d");
+      new Chart(ctx, {
+        type: 'line', // ← Changement ici
+        data: lineData,
+        options: lineOptions
+      });
+    }
+  });
+</script>
+
+<!--
+  borderColor: [
+        'rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 0.2)', 'rgba(255,99,132,1)', '#36a2eb',
+        'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 0.2)'
+      ],
+  -->

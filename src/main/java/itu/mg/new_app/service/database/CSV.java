@@ -4,14 +4,16 @@ import java.io.*;
 import java.util.*;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
-import itu.mg.new_app.model.Company;
-import itu.mg.new_app.utilitaires.ImportExport_impl;
-import itu.mg.new_app.utilitaires.traitement.Import_fichier1;
+import itu.mg.new_app.model.employee.Employee;
+import itu.mg.new_app.model.salary.Salary_Structure;
+import itu.mg.new_app.models_form.body.*;
+import itu.mg.new_app.utilitaires.*;
 
 
 @Service
@@ -105,20 +107,42 @@ public class CSV {
         return true;
     }
 
+    @SuppressWarnings("null")
+    public boolean valider_SalaryStructureAssignment (Set <Salary_Structure_assignment_body> salary_Structure_assignment_bodies,
+        List <Employee> employees, List <Salary_Structure> salary_Structures) throws Exception {
+        
+        int i = 0;
+        for (Salary_Structure_assignment_body ssaB : salary_Structure_assignment_bodies) {
+            // validation SALARY STRUCTURE ASSIGNMENT ****
+            Employee e = employees.get(Integer.parseInt(ssaB.getEmployee())-1); // get employee
+            Salary_Structure ss = null;
+            for (Salary_Structure salary_Structure : salary_Structures) {
+                //  GET SALARY STRUCTURE ***
+                if (salary_Structure.getName().equals(ssaB.getSalary_structure())) {
+                    ss = salary_Structure;
+                }
+            }
 
-    // public HashMap <String, Set <?>> readFichier1 (MultipartFile fichier, List <Company> companies) throws IOException {
+            if (ss != null & e.getCompany().equals(ss.getCompany())) {
+                ssaB.setEmployee(e.getEmployee());
+                ssaB.setCompany(e.getCompany());
+            } else {
+                throw new Exception("Invalide Salary structure asignment ligne "+i+1);
+            }
+            ++ i;
+        }
+        return true;
+    }
 
-    //     File CSVtempFile = File.createTempFile("upload_", "_" + fichier.getOriginalFilename());
-    //     fichier.transferTo(CSVtempFile);
-
-    //     Import_fichier1 import_fichier1 = new Import_fichier1();
-    //     import_fichier1.setCompanies(companies);
-
-    //     HashMap <String, List<?>> hashMap = ;
-
-
-    //     return null;
-    // }
+    public boolean validerFichier (MultipartFile fichier, String attributErreur, Model model) {
+        try {
+            this.isValid(fichier);
+            return true;
+        } catch (Exception e) {
+            model.addAttribute(attributErreur, e.getMessage());
+            return false;
+        }
+    }
 
 
 }

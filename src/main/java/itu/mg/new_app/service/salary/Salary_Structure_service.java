@@ -7,9 +7,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
-import itu.mg.new_app.model.salary.Salary_Structure;
+import itu.mg.new_app.model.salary.*;
 import itu.mg.new_app.models_form.body.*;
 import itu.mg.new_app.service.API_Service;
+import itu.mg.new_app.utilitaires.*;
 
 @Service
 public class Salary_Structure_service {
@@ -18,6 +19,8 @@ public class Salary_Structure_service {
 
     @Autowired private API_Service api_Service;
     private final String doctype = "Salary Structure";
+    private final ParameterizedTypeReference <Json_Result <Salary_Structure>> ref_single = new ParameterizedTypeReference<Json_Result<Salary_Structure>>() {};
+    private final ParameterizedTypeReference <Json_Result <List<Salary_Structure>>> ref_list = new ParameterizedTypeReference<Json_Result<List<Salary_Structure>>>() {};
 
     // public List <Salary_Structure> submit (String doc) {
 
@@ -38,13 +41,13 @@ public class Salary_Structure_service {
 
 
     public Salary_Structure save (Salary_Structure_body salary_Structure_body) throws Exception {
-        Map <String, Object> parametres = new HashMap<>();
-        Salary_Structure_List salary_Structure_List = api_Service.API_resource(doctype, parametres, salary_Structure_body, HttpMethod.POST, new ParameterizedTypeReference<Salary_Structure_List>() {});
 
-        if (salary_Structure_List.getException() != null && !salary_Structure_List.getException().isEmpty()) {
-            throw new Exception(salary_Structure_List.getExc_type()+" "+salary_Structure_List.getException());
+        Json_Result <Salary_Structure> result = api_Service.API_resource(doctype, salary_Structure_body, null, HttpMethod.POST, ref_single);
+
+        if (result.getException() != null && !result.getException().isEmpty()) {
+            throw new Exception(result.getExc_type()+" "+result.getException());
         } else {
-            return salary_Structure_List.getData();
+            return result.getData();
         }
     }
 
@@ -64,23 +67,3 @@ public class Salary_Structure_service {
 
 }
 
-class Salary_Structure_List {
-    private Salary_Structure data;
-    private String exception;
-    private String exc_type;
-
-    public Salary_Structure_List () {}
-
-    public String getExc_type() { return exc_type; }
-    public String getException() { return exception; }
-
-    public void setExc_type(String exc_type) { this.exc_type = exc_type; }
-    public void setException(String exception) { this.exception = exception; }
-
-    public Salary_Structure getData() {
-        return data;
-    }
-    public void setData(Salary_Structure data) {
-        this.data = data;
-    }
-}

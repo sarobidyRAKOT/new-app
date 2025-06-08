@@ -1,5 +1,6 @@
 package itu.mg.new_app.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -8,15 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+
 import itu.mg.new_app.model.User;
-import itu.mg.new_app.models_form.Login_form;
-import itu.mg.new_app.service.API_Service;
+import itu.mg.new_app.models_form.*;
+import itu.mg.new_app.service.*;
 import jakarta.servlet.http.HttpSession;
 
 @Controller 
 public class Main_controller {
     
     @Autowired private API_Service api_Service;
+
+
+    
 
     @GetMapping ("/")
     public String page_login (Model model) {

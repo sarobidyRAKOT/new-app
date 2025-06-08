@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div th:replace="~{pages/salary/component/salary-details :: salary-slip-information}"></div>
+  </div>
+
+  <!--
+    salary_Slip
+    currency
+    salary_detailsEarnings
+    salary_detailsDeductions
+  -->
+
+  <div class="col-lg-6 grid-margin stretch-card"><div th:replace="~{pages/salary/component/salary-details :: salary-details-earnings}"></div></div>
+  <div class="col-lg-6 grid-margin stretch-card"><div th:replace="~{pages/salary/component/salary-details :: salary-details-deduction}"></div></div>
+  <!--TOTAL -->
+  <div class="col-lg-12 grid-margin stretch-card"><div th:replace="~{pages/salary/component/salary-details :: salary-slip-total}"></div></div>
+</div>

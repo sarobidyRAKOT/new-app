@@ -1,0 +1,49 @@
+<div th:fragment="salary-slip" class="card">
+  <div class="card-body">
+    <h2 class="title text-center">*** SALARY SLIPS (MONTHLY) ***</h2>
+    <div class="table-responsive pt-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th>DATE (START & END)</th>
+            <th>SALARY STRUCTURE & CMPN</th>
+            <th>STATUS</th>
+            <th>GROSS PAY</th>
+            <th>DEDUCTION</th>
+            <th>NET PAY</th>
+            <th>NAME</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ss : ${salary_Slips}">
+            <td class="text-center" th:text="${ss.start_date}+' & '+${ss.end_date}"></td>
+            <td th:text="${ss.salary_structure}+' & '+${ss.company}"></td>
+            <td class="text-center"
+                th:classappend="
+                  ${ss.status == 'Draft'} ? ' text-danger' :
+                  (${ss.status == 'Submitted'} ? ' text-success' : ' text-secondary')
+                ">
+                <b th:text="${ss.status}"></b>
+            </td>
+            <td class="text-right"><b th:text="${ss.gross_pay}+ ' '+${ss.currency}"></b></td>
+            <td class="text-right"><b th:text="${ss.total_deduction}+ ' '+${ss.currency}"></b></td>
+            <td class="text-right"><b th:text="${ss.net_pay}+ ' '+${ss.currency}"></b></td>
+            <td class="text-center"><b th:text="${ss.name}"></b></td>
+            <td class="text-center">
+              <b>
+                <a class="text-primary" th:href="@{'/pdf/export/salary-slip'(salary_slip=${ss.name})}">Export</a>
+              </b>
+            </td>
+          </tr>              
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <a th:href="@{/database/import-file}" class="btn btn-secondary mr-4 mt-4">Import CSV</a>
+        <a th:href="@{/employee-list}" class="btn btn-secondary mr-4 mt-4">Employee List</a>
+      </div>
+    </div>
+  </div>
+</div>

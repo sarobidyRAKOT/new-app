@@ -1,0 +1,49 @@
+<div th:fragment="salary-slip-SumMonthly" class="card">
+  <div class="card-body">
+    <h2 class="title text-center" th:text="'*** SALARY SLIP (SUM MONTHLY, YEAR: '+${year}+') ***'"></h2>
+    <div class="table-responsive pt-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="text-center">
+            <th>MONTH</th>
+            <th>CURRENCY</th>
+            <th>GROSS PAY</th>
+            <th>EARNING</th>
+            <th>DEDUCTION</th>
+            <th>NET PAY</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="entry : ${salary_Slips}">
+              <td class="text-center"><b th:text="${entry.key}"></b></td>
+              <td class="text-center" th:text="${entry.value.currency}"></td>
+              <td class="text-right text-secondary"><b th:text="${entry.value.gross_pay + ' ' + entry.value.currency}"></b></td>
+              <td class="text-right text-info"><b th:text="${entry.value.total_earnings + ' ' + entry.value.currency}"></b></td>
+              <td class="text-right text-danger"><b th:text="${entry.value.total_deduction + ' ' + entry.value.currency}"></b></td>
+              <td class="text-right"><b th:text="${entry.value.net_pay + ' ' + entry.value.currency}"></b></td>
+              <td class="text-center">
+                <b> <!-- retour vers le SumByEmployee details somme -->
+                  <a class="text-primary" th:href="@{'/salary-slip/' + ${entry.key} + '?year=' + ${year}}">View Details</a>
+                </b>
+              </td>
+          </tr>      
+          <tr class="bg-white">
+            <td colspan="7"></td>
+          </tr>
+          <tr class="bg-secondary">
+            <td colspan="2" class="text-center"><b th:text="'TOTAL '+${year}"></b></td>
+            <td class="text-right"><b th:text="${salary_Slip_Total.gross_pay}+' '+${salary_Slip_Total.currency}"></b></td>
+            <td class="text-right"><b th:text="${salary_Slip_Total.total_earnings}+' '+${salary_Slip_Total.currency}"></b></td>
+            <td class="text-right"><b th:text="${salary_Slip_Total.total_deduction}+' '+${salary_Slip_Total.currency}"></b></td>
+            <td colspan="2" class="text-right text-center text-primary">
+              <a class="text-primary" th:href="@{'/employee-Salary/all/' +${year}}">
+                <b th:text="${salary_Slip_Total.net_pay}+' '+${salary_Slip_Total.currency}"></b>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
