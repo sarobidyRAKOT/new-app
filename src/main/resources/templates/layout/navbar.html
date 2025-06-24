@@ -99,15 +99,27 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" data-toggle="collapse" href="#database" aria-expanded="false" aria-controls="database">
           <i class="ti-server mt-n2 menu-icon"></i>
           <span class="menu-title">Databases</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="database">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item mt-n2"> <a class="nav-link mt-2" th:href="@{/database/import-file}">import file</a></li>
             <li class="nav-item mt-n2"> <a class="nav-link mt-2" th:href="@{/database/init-database}">Init DATABASE</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#stock" aria-expanded="false" aria-controls="stock">
+          <i class="ti-package mt-n2 menu-icon"></i>
+          <span class="menu-title">Stock</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="stock">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item mt-n2"> <a class="nav-link mt-2" th:href="@{/form/material-request}">New Material Request</a></li>
           </ul>
         </div>
       </li>

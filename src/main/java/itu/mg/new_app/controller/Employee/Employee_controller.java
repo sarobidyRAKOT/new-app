@@ -13,14 +13,14 @@ import itu.mg.new_app.model.Company;
 import itu.mg.new_app.model.RH.*;
 import itu.mg.new_app.model.Utils.Gender;
 import itu.mg.new_app.model.employee.*;
+import itu.mg.new_app.model.form.Filtre_Employee_form;
 import itu.mg.new_app.model.salary.*;
-import itu.mg.new_app.models_form.*;
 import itu.mg.new_app.service.*;
 import itu.mg.new_app.service.RH.*;
 import itu.mg.new_app.service.employee.*;
 import itu.mg.new_app.service.salary.*;
 import itu.mg.new_app.service.utils.Gender_service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.Parameters;
 
 @Controller
 public class Employee_controller {

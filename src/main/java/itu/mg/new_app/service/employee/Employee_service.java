@@ -7,12 +7,12 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
-
+import itu.mg.new_app.model.body.*;
 import itu.mg.new_app.model.employee.*;
-import itu.mg.new_app.models_form.*;
-import itu.mg.new_app.models_form.body.*;
+import itu.mg.new_app.model.form.Filtre_Employee_form;
 import itu.mg.new_app.service.*;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.Json_Result;
+import itu.mg.new_app.utilitaires.others.Parameters;
 
 @Service
 public class Employee_service {

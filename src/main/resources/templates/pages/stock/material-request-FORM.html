@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="title text-center">*** INSERTION MATERIAL REQUEST *** </h2>
+        <form class="form-sample" th:action="@{/form/material-request}" method="POST" th:object="${material_request_form}">
+          <p class="card-description text-center">MATERIAL REQUEST IMFORMATIONS</p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Transaction date</label>
+                <div class="col-sm-9">
+                  <input type="date" class="form-control" th:field="*{transaction_date}">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Purpose</label>
+                <div class="col-sm-9">
+                    <select class="form-control" th:field="*{purpose}">
+                        <option value="Purchase">Purchase</option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Warehouse</label>
+                <div class="col-sm-9">
+                  <select class="form-control" th:field="*{warehouse}">
+                    <option th:each="warehouse : ${warehouses}" th:value="${warehouse.name}" th:text="${warehouse.name}"></option>
+                    <!--
+                    -->
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">required by</label>
+                <div class="col-sm-9">
+                  <input type="date" th:field="*{required_by}" class="form-control" placeholder="dd/mm/yyyy">
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    <!--
+    -->      
+
+<div id="details-container">
+    <div class="row detail-row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">item code</label>
+                <div class="col-sm-6">
+                    <select name="items[0].item_name" class="form-control">
+                        <option value="">-- Sélectionnez un article --</option>
+                        <option th:each="item : ${items}"
+                                th:value="${item.item_code}"
+                                th:text="${item.name}"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Quantité</label>
+                <div class="col-sm-6">
+                    <input type="number" name="items[0].qty" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Unité</label>
+                <div class="col-sm-6">
+                    <input type="text" name="items[0].uom" class="form-control" value="Nos" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 mt-2">
+            <i class="ti-plus text-success add-row" style="font-size: 2rem; cursor: pointer;"></i>
+            <i class="ti-trash text-danger remove-row" style="font-size: 2rem; cursor: pointer;"></i>
+        </div>
+    </div>
+</div>
+
+          <button type="submit" class="btn btn-primary"> valider </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+

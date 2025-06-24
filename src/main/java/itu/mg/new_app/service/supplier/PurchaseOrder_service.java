@@ -7,8 +7,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
+import itu.mg.new_app.model.body.List_body;
 import itu.mg.new_app.model.supplier.Purchase_order;
-import itu.mg.new_app.models_form.body.List_body;
 import itu.mg.new_app.service.API_Service;
 
 // COMMANDE FOURNISSEUR *****

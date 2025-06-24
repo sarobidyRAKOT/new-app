@@ -8,8 +8,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import itu.mg.new_app.model.Company;
-import itu.mg.new_app.models_form.body.*;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.model.body.*;
+import itu.mg.new_app.utilitaires.others.*;
 
 @Service
 public class Company_service {
@@ -37,6 +37,7 @@ public class Company_service {
         List <Company> cs = new ArrayList<>();
 
         for (Company_body company : companies) {
+            // company.setDefault_holiday_list(holiday_List.getName());
             try {
                 cs.add(this.save(company));
             } catch (Exception e) {

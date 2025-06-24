@@ -1,0 +1,78 @@
+<div th:fragment="salary-slip-PDFmodel" class="A4">
+  <header>
+    <h1>FICHE DE PAIE</h1>
+  </header>
+
+  <div class="info">  
+    <div>
+    </div>
+    <div>
+      <p><strong>EMPLOYEE :</strong> <span  th:text="${salary_Slip.employee}"></span></p>
+      <p><strong>EMPLOYEE NAME : </strong><span th:text="${salary_Slip.employee_name}"></span></p>
+      <p><strong>COMPANY :</strong> <span th:text="${salary_Slip.company}"></span></p>
+      <p><strong>START DATE :</strong> <span  th:text="${salary_Slip.start_date}"></span></p>
+      <p><strong>END DATE :</strong> <span th:text="${salary_Slip.end_date}"></span></p>
+      <p><strong>WORKING DAYS :</strong> <span  th:text="${salary_Slip.total_working_days}+' days'"></span></p>
+    </div>
+  </div>
+
+  <h3>SALARY COMPONENTS ***</h3>
+  <h4 class="table-title">EARNINGS DETAILS</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>SALARY COMPONENT</th>
+        <th>ABRR</th>
+        <th>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="earn : ${salary_Slip.earnings}">
+        <td th:text="${earn.salary_component}"></td>
+        <td th:text="${earn.abbr}"></td>
+        <td th:text="${earn.amount+' '+salary_Slip.currency}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <h4 class="table-title">DEDUCTIONS DETAILS</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>SALARY COMPONENT</th>
+        <th>ABRR</th>
+        <th>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="deduction: ${salary_Slip.deductions}">
+        <td  th:text="${deduction.salary_component}"></td>
+        <td  th:text="${deduction.abbr}"></td>
+        <td  th:text="${deduction.amount+' '+salary_Slip.currency}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="summary">
+    <table>
+      <tr>
+        <td><strong>GROSS PAY :</strong></td>
+        <td  th:text="${salary_Slip.gross_pay+' '+salary_Slip.currency}"></td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL DEDUCTIONS :</strong></td>
+        <td th:text="${salary_Slip.total_deduction+' '+salary_Slip.currency}"></td>
+      </tr>
+      <tr>
+        <td><strong>NET PAY :</strong></td>
+        <td><strong th:text="${salary_Slip.net_pay+' '+salary_Slip.currency}"></strong></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ttlwords">
+    TOTAL IN WORDS : <strong th:text="${salary_Slip.total_in_words}"></strong>
+  </div>
+
+</div>

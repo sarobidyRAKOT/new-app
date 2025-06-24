@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import itu.mg.new_app.model.RH.Designation;
 import itu.mg.new_app.service.API_Service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 
 @Service
 public class Designation_service {

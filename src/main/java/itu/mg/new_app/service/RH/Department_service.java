@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import itu.mg.new_app.model.RH.Department;
 import itu.mg.new_app.service.API_Service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.Json_Result;
+import itu.mg.new_app.utilitaires.others.Parameters;
 
 @Service
 public class Department_service {

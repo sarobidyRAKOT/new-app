@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
 
-        <div th:replace="~{pages/salary/salary-slip-PDF :: salary-slip-PDF}"></div>
+        <div th:replace="~{pages/salary/salary-slip-PDFmodel :: salary-slip-PDFmodel}"></div>
         <div class="row">
           <div class="col text-center">
             <a th:href="@{'/pdf/download/salary-slip'(salary_slip=${salary_Slip.name})}" class="btn btn-primary my-5">DOWNLOAD</a>

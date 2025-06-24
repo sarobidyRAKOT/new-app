@@ -9,11 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import itu.mg.new_app.model.Utils.Graphe;
+import itu.mg.new_app.model.form.Filtre_Mois_form;
 import itu.mg.new_app.model.salary.*;
-import itu.mg.new_app.models_form.*;
 import itu.mg.new_app.service.salary.*;
-import itu.mg.new_app.utilitaires.*;
-import itu.mg.new_app.utilitaires.Month;
+import itu.mg.new_app.utilitaires.others.Month;
+import itu.mg.new_app.utilitaires.others.Parameters;
 
 @Controller
 public class Salary_Slip_controller {

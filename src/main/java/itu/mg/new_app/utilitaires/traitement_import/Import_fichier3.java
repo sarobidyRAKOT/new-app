@@ -4,14 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import itu.mg.new_app.models_form.body.*;
-import itu.mg.new_app.models_form.imports_value.Fichier_3;
-import itu.mg.new_app.utilitaires.ImportExport_impl;
+import itu.mg.new_app.model.body.*;
+import itu.mg.new_app.utilitaires.result_import.*;
 
 public class Import_fichier3 implements ImportExport_impl <Fichier_3> {
 
+    private final Fichier_3 fichier_3 = new Fichier_3 ();
+
     @Override
-    public Fichier_3 Import (String[] ligne, int num_ligne) throws Exception {
+    public void Import (String[] ligne, int num_ligne) {
 
         if (ligne.length == 4) {
             // Traitement ...
@@ -21,45 +22,21 @@ public class Import_fichier3 implements ImportExport_impl <Fichier_3> {
             double base = Double.valueOf(ligne[2]);
             String salary_structure = ligne[3];
 
+            Salary_Structure_Assignment_body ssaB = new Salary_Structure_Assignment_body(from_date, ""+ref, base, salary_structure);
+            Salary_Slip_body ssB = new Salary_Slip_body();
 
-            Fichier_3 fichier = new Fichier_3();
+            fichier_3.addSalary_Slip(ssB);
+            fichier_3.addSalary_StructureAssignment(ssaB);
 
-            Salary_Structure_assignment_body ssaB = new Salary_Structure_assignment_body(from_date, ""+ref, base, salary_structure);
-            fichier.setSalary_Structure_assignment_body(ssaB);
-            return fichier;
-        } else throw new Exception("Nombre de colonne invalide !!");
+        } else fichier_3.addErrors ("Nombre de colonne invalide a la ligne "+num_ligne);
     }
+    
 
     @Override
     public List<String> Export(List<Fichier_3> objets) {
         throw new UnsupportedOperationException("Unimplemented method 'Export'");
     }
 
-    @Override
-    public String translate(Map<String, String> data, String input) {
-        if (input == null) return "Unknown";
-        String cle = input.trim().toLowerCase();
-        return data.getOrDefault(cle, input);
-    }
-
-
-    @Override
-    public String generateTempName(String doctype) {
-
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        Random random = new Random();
-        StringBuilder randomString = new StringBuilder();
-
-        for (int i = 0; i < 10; i++) {
-            randomString.append(alphabet.charAt(random.nextInt(alphabet.length())));
-        }
-        return "new-" + doctype.toLowerCase() + "-" + randomString.toString();
-    }
-
-    @Override
-    public String abbreviate(String input) {
-        throw new UnsupportedOperationException("Unimplemented method 'abbreviate'");
-    }
 
     public LocalDate parseDate (String input) {
         String[] patterns = {
@@ -75,6 +52,12 @@ public class Import_fichier3 implements ImportExport_impl <Fichier_3> {
         }
 
         throw new IllegalArgumentException("Format de date non reconnu : " + input);
+    }    
+
+
+	@Override
+	public Fichier_3 get_result() {
+        return this.fichier_3;
     }
 
     

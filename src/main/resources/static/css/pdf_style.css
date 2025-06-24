@@ -1,0 +1,71 @@
+.A4 {
+    width: 21cm;
+    height: 29.7cm;
+    margin: auto;
+    padding: 2cm;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+}
+.A4 header h1 {
+    text-align: center;
+}
+.A4 .info {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.A4 .info div p {
+    font-size: 16px;
+}
+.A4 h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.A4 table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+.A4 .table-title {
+    text-align: center;
+}
+.A4 table tbody td:last-child {
+    text-align: right;
+}
+
+.A4 th, .A4 td {
+    border: 1px solid #aaa;
+    padding: 10px;
+    text-align: left;
+}
+.A4 th {
+    background-color: #f2f2f2;
+}
+.A4 .summary {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.A4 .summary table {
+    width: 50%;
+}
+.A4 .summary td {
+    text-align: right;
+}
+.A4 .summary td:first-child {
+    text-align: left;
+}
+.A4 .ttlwords {
+    text-align: right;
+    font-style: italic;
+    margin-top: 40px;
+}
+
+.amount-words {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;  
+}

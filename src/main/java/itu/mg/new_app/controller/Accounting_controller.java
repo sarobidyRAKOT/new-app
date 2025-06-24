@@ -1,39 +1,14 @@
 package itu.mg.new_app.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Instant;
-import java.util.List;
-import java.util.Map;
 
-import java.io.File;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import itu.mg.new_app.model.Payment_entry;
-import itu.mg.new_app.model.Purchase_invoice;
-import itu.mg.new_app.service.Purchase_invoice_service;
 
 @Controller
 public class Accounting_controller {
     
-    private final String FILE_PATH = "save_payment.json";
+    final String FILE_PATH = "save_payment.json";
     // ObjectMapper objectMapper = new ObjectMapper();
 
 

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 
 import itu.mg.new_app.config.ApiProperties;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 
 @Service
 public class API_Service {
@@ -22,7 +22,6 @@ public class API_Service {
 
     @Autowired private ApiProperties API_properties;
     @Autowired private RestTemplate restTemplate;
-    @Autowired private ObjectMapper mapper;
 
 
     public <T> T API (String url, Object body, HashMap <String, Object> parametres, 
@@ -194,5 +193,41 @@ public class API_Service {
         return response.getBody();
     }
 
+    
+
+    public <T> T API_ReinitialiserDBA (Object body, Parameters parameters, ParameterizedTypeReference<T> responseType) {
+        
+        String uri = API_properties.getBaseUrl() + "/api/method/erpnext.dba_manager.dba_api.reinitialiser_DB";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "token " + API_properties.getToken());
+
+        HttpEntity<Object> entity = new HttpEntity<>(body, headers);
+
+        // ParameterizedTypeReference<Json_Result<T>> responseType = new ParameterizedTypeReference<Json_Result<T>>() {};
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(uri);
+
+        if (parameters == null) {
+            parameters = Parameters.get_instance();
+        }
+        for (Map.Entry<String, Object> entry : parameters.getFields().entrySet()) {
+            builder.queryParam(entry.getKey(), entry.getValue());
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String filtersJson = mapper.writeValueAsString(parameters.getFilters());
+            builder.queryParam("filters", filtersJson);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Erreur lors de la sérialisation des filtres", e);
+        }
+
+
+        URI finalUri = builder.build().encode().toUri();
+        ResponseEntity<T> response = restTemplate.exchange(finalUri, HttpMethod.GET, entity, responseType);
+
+        return response.getBody();
+    }
 
 }

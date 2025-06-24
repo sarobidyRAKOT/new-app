@@ -7,10 +7,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+import itu.mg.new_app.model.body.*;
 import itu.mg.new_app.model.salary.Salary_Component;
-import itu.mg.new_app.models_form.body.*;
 import itu.mg.new_app.service.API_Service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 
 @Service
 public class Salary_Component_service {

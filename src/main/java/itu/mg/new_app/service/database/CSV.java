@@ -10,22 +10,22 @@ import org.springframework.web.multipart.MultipartFile;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 
+import itu.mg.new_app.model.body.*;
 import itu.mg.new_app.model.employee.Employee;
 import itu.mg.new_app.model.salary.Salary_Structure;
-import itu.mg.new_app.models_form.body.*;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.traitement_import.*;
 
 
 @Service
 public class CSV {
     
+    public <T> T import_CSV (MultipartFile file, ImportExport_impl<T> importExport_CSV) {
+        
 
-    public <T> HashMap <String, List <?>> import_CSV (MultipartFile file, ImportExport_impl<T> importExport_CSV) {
         
-        
-        HashMap <String, List <?>> valiny = new HashMap <String, List <?>> ();
-        List <T> items = new ArrayList <> ();
-        List <String> errors = new ArrayList<>();
+        // HashMap <String, Object> valiny = new HashMap <String, Object> ();
+        // List <T> items = new ArrayList <> ();
+        // List <String> errors = new ArrayList<>();
         CSVReader csvReader = null;
         
         try {
@@ -38,12 +38,12 @@ public class CSV {
             String[] ligne;
             csvReader.readNext(); // lire le titre *** 
             while ((ligne = csvReader.readNext()) != null) {
-                try {
-                    T item = importExport_CSV.Import (ligne, num_ligne);
-                    items.add(item);
-                } catch (Exception e) {
-                    errors.add("Error a la ligne "+num_ligne+", exception :"+e.getMessage()+", cause: "+e.getCause());
-                }
+                importExport_CSV.Import (ligne, num_ligne);
+                // try {
+                //     // items.add(item);
+                // } catch (Exception e) {
+                //     errors.add("Error a la ligne "+num_ligne+", exception :"+e.getMessage()+", cause: "+e.getCause());
+                // }
                 ++ num_ligne;
             }
 
@@ -52,11 +52,47 @@ public class CSV {
             e.printStackTrace();
         }
 
-        valiny.put("items", items);
-        valiny.put("errors", errors);
-        
-        return valiny;
+        // valiny.put("items", importExport_CSV.get_result().);
+        // valiny.put("errors", importExport_CSV.);
+        return importExport_CSV.get_result();
     }
+
+    // public <T> HashMap <String, Object> import_ (MultipartFile file, ImportExport_impl<T> importExport_CSV) {
+        
+        
+    //     HashMap <String, Object> valiny = new HashMap <String, Object> ();
+    //     // List <T> items = new ArrayList <> ();
+    //     List <String> errors = new ArrayList<>();
+    //     CSVReader csvReader = null;
+        
+    //     try {
+    //         File CSVtempFile = File.createTempFile("upload_", "_" + file.getOriginalFilename());
+    //         file.transferTo(CSVtempFile);
+            
+    //         String pathFile = CSVtempFile.getAbsolutePath();
+    //         csvReader = new CSVReader(new FileReader(pathFile));
+    //         csvReader.readNext(); // lire le titre *** 
+    //         T results = importExport_CSV.Import(csvReader);
+    //         // while ((ligne = csvReader.readNext()) != null) {
+    //         //     try {
+    //         //         T item = importExport_CSV.Import (ligne, num_ligne);
+    //         //         items.add(item);
+    //         //     } catch (Exception e) {
+    //         //         errors.add("Error a la ligne "+num_ligne+", exception :"+e.getMessage()+", cause: "+e.getCause());
+    //         //     }
+    //         //     ++ num_ligne;
+    //         // }
+
+    //         csvReader.close();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+
+    //     // valiny.put("items", items);
+    //     valiny.put("errors", errors);
+        
+    //     return valiny;
+    // }
 
 
     public <T> File export_CSV (String pathFile, ImportExport_impl<T> importExport_CSV, List <T> objets) {
@@ -108,11 +144,11 @@ public class CSV {
     }
 
     @SuppressWarnings("null")
-    public boolean valider_SalaryStructureAssignment (Set <Salary_Structure_assignment_body> salary_Structure_assignment_bodies,
+    public boolean valider_SalaryStructureAssignment (Set <Salary_Structure_Assignment_body> salary_Structure_assignment_bodies,
         List <Employee> employees, List <Salary_Structure> salary_Structures) throws Exception {
         
         int i = 0;
-        for (Salary_Structure_assignment_body ssaB : salary_Structure_assignment_bodies) {
+        for (Salary_Structure_Assignment_body ssaB : salary_Structure_assignment_bodies) {
             // validation SALARY STRUCTURE ASSIGNMENT ****
             Employee e = employees.get(Integer.parseInt(ssaB.getEmployee())-1); // get employee
             Salary_Structure ss = null;

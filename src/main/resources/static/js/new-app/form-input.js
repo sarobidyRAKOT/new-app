@@ -1,5 +1,6 @@
 // FONCTION POUR AJOUTER ET SUPPRIMER `input form`
 
+let index = 1;
 document.addEventListener("click", function(e) {
     if (e.target.classList.contains("add-row")) {
         e.preventDefault();
@@ -11,6 +12,9 @@ document.addEventListener("click", function(e) {
             const name = input.getAttribute("name");
             const updatedName = name.replace(/\[\d+\]/, `[${index}]`);
             input.setAttribute("name", updatedName);
+            if (!input.value.trim()) {
+                console.log("vide");
+            }
             input.value = ""; // Réinitialiser les champs
         });
 
@@ -22,6 +26,8 @@ document.addEventListener("click", function(e) {
         e.preventDefault();
         const row = e.target.closest(".detail-row");
         if (document.querySelectorAll(".detail-row").length > 1) {
+            console.log(document.querySelectorAll(".detail-row").length);
+            
             row.remove();
         }
     }

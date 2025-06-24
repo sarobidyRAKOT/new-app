@@ -7,10 +7,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+import itu.mg.new_app.model.body.*;
 import itu.mg.new_app.model.salary.*;
-import itu.mg.new_app.models_form.body.*;
 import itu.mg.new_app.service.API_Service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 
 @Service
 public class Salary_Structure_service {
@@ -20,7 +20,7 @@ public class Salary_Structure_service {
     @Autowired private API_Service api_Service;
     private final String doctype = "Salary Structure";
     private final ParameterizedTypeReference <Json_Result <Salary_Structure>> ref_single = new ParameterizedTypeReference<Json_Result<Salary_Structure>>() {};
-    private final ParameterizedTypeReference <Json_Result <List<Salary_Structure>>> ref_list = new ParameterizedTypeReference<Json_Result<List<Salary_Structure>>>() {};
+    // private final ParameterizedTypeReference <Json_Result <List<Salary_Structure>>> ref_list = new ParameterizedTypeReference<Json_Result<List<Salary_Structure>>>() {};
 
     // public List <Salary_Structure> submit (String doc) {
 
@@ -51,7 +51,7 @@ public class Salary_Structure_service {
         }
     }
 
-    public List <Salary_Structure> save_submit (Set <Salary_Structure_body> salary_structures, boolean submit) throws Exception {
+    public List <Salary_Structure> save (Set <Salary_Structure_body> salary_structures, boolean submit) throws Exception {
         List <Salary_Structure> structures = new ArrayList<>();
 
         for (Salary_Structure_body ssBody : salary_structures) {

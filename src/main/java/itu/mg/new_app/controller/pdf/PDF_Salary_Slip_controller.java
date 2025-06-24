@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import itu.mg.new_app.model.salary.Salary_Slip;
 import itu.mg.new_app.service.salary.Salary_Slip_service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -18,14 +18,11 @@ public class PDF_Salary_Slip_controller {
     @Autowired private Salary_Slip_service salary_Slip_service;
 
     @GetMapping ("/export/salary-slip")
-    public String page_exportSalarySlipPDF (@RequestParam (required = true, defaultValue = "salary_slip") String salary_slip, Model model) {
+    public String page_exportSalarySlipPDF (@RequestParam (required=true, defaultValue="salary_slip") String salary_slip, Model model) {
         
-        Parameters parameters = Parameters.get_instance();
-        parameters.addField("fields", "[\"*\"]");
+        Salary_Slip salary_Slip = salary_Slip_service.get_by(salary_slip, null);
 
-        Salary_Slip ss = salary_Slip_service.get_by(salary_slip, parameters);
-
-        model.addAttribute("salary_Slip", ss);
+        model.addAttribute("salary_Slip", salary_Slip);
         model.addAttribute("page", "pdf/export-salary-slip");
         return "main-page";
     }

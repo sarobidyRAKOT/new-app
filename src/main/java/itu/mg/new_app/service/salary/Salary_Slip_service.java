@@ -14,9 +14,10 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
+import itu.mg.new_app.model.body.Salary_Slip_body;
 import itu.mg.new_app.model.salary.*;
 import itu.mg.new_app.service.API_Service;
-import itu.mg.new_app.utilitaires.*;
+import itu.mg.new_app.utilitaires.others.*;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Service
@@ -54,6 +55,34 @@ public class Salary_Slip_service {
     }
 
 
+    public Salary_Slip save (Salary_Slip_body salary_Slip_body) throws Exception {
+       
+        Json_Result <Salary_Slip> result = api_Service.API_resource(doctype, salary_Slip_body, null, HttpMethod.POST, ref_single);
+
+        if (result.getException() != null && !result.getException().isEmpty()) {
+            throw new Exception(result.getExc_type()+" "+result.getException());
+        } 
+        return result.getData();
+        
+    }
+
+
+    public List <Salary_Slip> save (Set <Salary_Slip_body> salary_Slip_bodies, boolean submit) throws Exception {
+        
+        List <Salary_Slip> salary_Slips = new ArrayList<>();
+
+        for (Salary_Slip_body ssB : salary_Slip_bodies) {
+            // if (submit) ssB.setDocstatus(1);
+            try {
+                salary_Slips.add(save(ssB));
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return salary_Slips;
+    }
+
+
     public Map <Month, Salary_Slip> somme_salary_slipBy (Integer annees) {
         Parameters parameters = Parameters.get_instance(); // 
         parameters.addField("fields", "[\"*\"]");
@@ -85,12 +114,12 @@ public class Salary_Slip_service {
 
     public void telechargerPDF_Salary_Slip(HttpServletResponse response, Salary_Slip salary_Slip) {
         try {
-            // 1. Préparer HTML
+            // 1. Préparer HTML ***
             Context context = new Context();
             context.setVariable("salary_Slip", salary_Slip);
-            String pathHTML = springTemplateEngine.process("pages/salary/salary-slip-PDF", context);
+            String pathHTML = springTemplateEngine.process("pages/pdf/salary-slip-PDF", context);
 
-            // 2. Générer le PDF dans un buffer
+            // 2. Générer le PDF dans un buffer ***
             ByteArrayOutputStream pdfOutput = new ByteArrayOutputStream();
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
@@ -98,7 +127,7 @@ public class Salary_Slip_service {
             builder.toStream(pdfOutput);
             builder.run();
 
-            // 3. Écriture HTTP uniquement si pas d'erreur
+            // 3. Écriture HTTP uniquement si pas d'erreur ***
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition", "attachment; filename=fiche_de_paie.pdf");
             response.setContentLength(pdfOutput.size());
@@ -111,15 +140,6 @@ public class Salary_Slip_service {
         } catch (Exception e) {
             // S'il y a une erreur, NE RIEN ÉCRIRE dans la réponse si déjà committée
             e.printStackTrace();
-
-            if (!response.isCommitted()) {
-                try {
-                    response.reset(); // Efface partiellement le buffer de réponse (si possible)
-                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur lors de la génération du PDF");
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            }
         }
     }
 
